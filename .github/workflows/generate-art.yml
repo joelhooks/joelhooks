@@ -1,0 +1,69 @@
+name: Generate Header Art
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # Daily at 6am UTC
+  workflow_dispatch:
+    inputs:
+      mood:
+        description: "Art mood/style"
+        required: false
+        default: "random"
+        type: choice
+        options:
+          - random
+          - cyberpunk
+          - nature
+          - ocean
+          - sunset
+          - neon
+          - minimal
+          - cosmic
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate new header with Claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Generate a fresh generative art SVG header for my GitHub profile.
+
+            Current approach is in generate-header.js - study it to understand the style.
+
+            Your task:
+            1. Pick a mood: ${{ github.event.inputs.mood || 'random' }} 
+               (if random, choose something interesting: cyberpunk, nature, ocean, sunset, neon, minimal, cosmic, etc.)
+            2. Create a new color palette that fits the mood (5 colors)
+            3. Adjust shape density, animation styles, and composition
+            4. Keep "JOEL HOOKS" text centered with a gradient that uses the palette
+            5. Background should be dark (#0d1117 or similar)
+            6. SVG should be 800x200
+
+            Either:
+            - Modify generate-header.js with new palette/params and run it to create header.svg
+            - Or generate header.svg directly if you want more creative control
+
+            Then commit with message like "art: [mood] daily generative header"
+          claude_args: "--max-turns 10"
+
+      - name: Push if changed
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git diff --quiet && git diff --staged --quiet || git push
