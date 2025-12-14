@@ -1,4 +1,4 @@
-![header](header.svg)
+![header](https://raw.githubusercontent.com/joelhooks/joelhooks/main/header.svg)
 
 ```
 npx joelhooks
