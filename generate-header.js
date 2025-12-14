@@ -11,7 +11,7 @@ const HEIGHT = 200;
 
 // Badass color palette
 const PALETTES = [
-  ["#8e44ad", "#3498db", "#e74c3c", "#f39c12", "#9b59b6"], // cosmic
+  ["#ff006e", "#00f5ff", "#ff00ff", "#7d00ff", "#00ff9f"], // neon
 ];
 
 function random(min, max) {
