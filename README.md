@@ -11,23 +11,28 @@
 
 ---
 
-I build tools for people who teach developers. If you've learned from [Total TypeScript](https://totaltypescript.com), [Pro Tailwind](https://protailwind.com), or [Testing Accessibility](https://testingaccessibility.com) — that's the platform I help create.
+I build tools for people who teach developers. The platform I create powers courses from world-class educators:
+
+|                                                     |                                                                              |
+| --------------------------------------------------- | ---------------------------------------------------------------------------- |
+| [**AI Hero**](https://aihero.dev)                   | Matt Pocock's AI engineering course — prompt engineering, evals, RAG, agents |
+| [**Epic AI**](https://epicai.pro)                   | Kent C. Dodds on architecting intelligent experiences with MCP               |
+| [**Total TypeScript**](https://totaltypescript.com) | The industry standard for learning TypeScript                                |
+| [**Pro Tailwind**](https://protailwind.com)         | Simon Vrachliotis' deep dive into Tailwind CSS                               |
 
 ### Currently Obsessed With
 
 - **AI-assisted development** — not vibe coding, but structured multi-agent workflows that actually ship
-- **Developer education at scale** — making expert knowledge accessible without dumbing it down
+- **MCP & agent architecttic** — how applications expose capabilities to AI
 - **Next.js + RSC** — server components, streaming, caching, the whole beautiful mess
 
 ### Open Source
 
-| Project                                                                         | What It Does                                                                           |
-| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| [**course-builder**](https://github.com/joelhooks/course-builder)               | Platform for building badass courses. Powers Total TypeScript, Pro Tailwind, and more. |
-| [**opencode-swarm-plugin**](https://github.com/joelhooks/opencode-swarm-plugin) | Multi-agent swarm coordination with learning capabilities                              |
-| [**opencode-config**](https://github.com/joelhooks/opencode-config)             | My OpenCode setup — commands, tools, agents, knowledge                                 |
-| [**pdf-brain**](https://github.com/joelhooks/pdf-brain)                         | Local PDF knowledge base with vector search                                            |
-| [**semantic-memory**](https://github.com/joelhooks/semantic-memory)             | Local semantic memory for AI agents                                                    |
+| Project                                                                         | What It Does                                              |
+| ------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| [**course-builder**](https://github.com/skillrecordings/course-builder)         | The platform behind all the courses above                 |
+| [**opencode-swarm-plugin**](https://github.com/joelhooks/opencode-swarm-plugin) | Multi-agent swarm coordination with learning capabilities |
+| [**opencode-config**](https://github.com/joelhooks/opencode-config)             | My OpenCode setup — commands, tools, agents, knowledge    |
 
 ### Writing
 
