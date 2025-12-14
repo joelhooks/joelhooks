@@ -65,6 +65,7 @@ jobs:
           claude_expires_at: ${{ secrets.CLAUDE_EXPIRES_AT }}
           secrets_admin_pat: ${{ secrets.SECRETS_ADMIN_PAT }}
           timeout_minutes: "30"
+          model: "claude-opus-4-5-20250514"
 
       - name: Push if changed
         run: |
