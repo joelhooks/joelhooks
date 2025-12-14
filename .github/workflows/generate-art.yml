@@ -67,7 +67,7 @@ jobs:
           claude_expires_at: ${{ secrets.CLAUDE_EXPIRES_AT }}
           secrets_admin_pat: ${{ secrets.SECRETS_ADMIN_PAT }}
           timeout_minutes: "30"
-          model: "claude-sonnet-4-20250514"
+          model: "claude-sonnet-4-5-20250514"
           allowed_tools: "Bash,Read,Glob,Grep,LS,TodoRead,TodoWrite"
 
       - name: Push if changed
