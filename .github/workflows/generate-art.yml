@@ -37,10 +37,15 @@ jobs:
           node-version: "20"
 
       - name: Generate new header with Claude
-        uses: anthropics/claude-code-action@v1
+        uses: grll/claude-code-action@beta
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          prompt: |
+          use_oauth: true
+          claude_access_token: ${{ secrets.CLAUDE_ACCESS_TOKEN }}
+          claude_refresh_token: ${{ secrets.CLAUDE_REFRESH_TOKEN }}
+          claude_expires_at: ${{ secrets.CLAUDE_EXPIRES_AT }}
+          secrets_admin_pat: ${{ secrets.SECRETS_ADMIN_PAT }}
+          timeout_minutes: "30"
+          direct_prompt: |
             Generate a fresh generative art SVG header for my GitHub profile.
 
             Current approach is in generate-header.js - study it to understand the style.
@@ -59,7 +64,6 @@ jobs:
             - Or generate header.svg directly if you want more creative control
 
             Then commit with message like "art: [mood] daily generative header"
-          claude_args: "--max-turns 10"
 
       - name: Push if changed
         run: |
