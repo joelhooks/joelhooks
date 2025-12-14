@@ -1,4 +1,8 @@
 ```
+npx joelhooks
+```
+
+```
      ██╗ ██████╗ ███████╗██╗         ██╗  ██╗ ██████╗  ██████╗ ██╗  ██╗███████╗
      ██║██╔═══██╗██╔════╝██║         ██║  ██║██╔═══██╗██╔═══██╗██║ ██╔╝██╔════╝
      ██║██║   ██║█████╗  ██║         ███████║██║   ██║██║   ██║█████╔╝ ███████╗
@@ -23,7 +27,7 @@ I build tools for people who teach developers. The platform I create powers cour
 ### Currently Obsessed With
 
 - **AI-assisted development** — not vibe coding, but structured multi-agent workflows that actually ship
-- **MCP & agent architecttic** — how applications expose capabilities to AI
+- **MCP & agent architecture** — how applications expose capabilities to AI
 - **Next.js + RSC** — server components, streaming, caching, the whole beautiful mess
 
 ### Open Source
@@ -40,4 +44,4 @@ I write at [joelhooks.com](https://joelhooks.com) about building products, devel
 
 ---
 
-<sub>Vancouver, WA · [@joelhooks](https://twitter.com/joelhooks) · [badass.dev](https://badass.dev)</sub>
+<sub>Vancouver, WA · [@joelhooks](https://twitter.com/joelhooks) · [🦋 Bluesky](https://bsky.app/profile/joelhooks.com) · [badass.dev](https://badass.dev)</sub>
