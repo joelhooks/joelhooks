@@ -25,6 +25,10 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+      actions: write
     steps:
       - uses: actions/checkout@v4
 
@@ -33,39 +37,36 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install Claude Code CLI
-        run: npm install -g @anthropic-ai/claude-code
-
       - name: Generate new header with Claude
-        env:
-          MOOD: ${{ github.event.inputs.mood || 'random' }}
-          CLAUDE_CODE_USE_OAUTH: "1"
-          CLAUDE_ACCESS_TOKEN: ${{ secrets.CLAUDE_ACCESS_TOKEN }}
-          CLAUDE_REFRESH_TOKEN: ${{ secrets.CLAUDE_REFRESH_TOKEN }}
-          CLAUDE_EXPIRES_AT: ${{ secrets.CLAUDE_EXPIRES_AT }}
-        run: |
-          claude --print "
-          Generate a fresh generative art SVG header for my GitHub profile.
+        uses: grll/claude-code-base-action@main
+        with:
+          prompt: |
+            Generate a fresh generative art SVG header for my GitHub profile.
 
-          Current approach is in generate-header.js - study it to understand the style.
+            Current approach is in generate-header.js - study it to understand the style.
 
-          Your task:
-          1. Pick a mood: ${MOOD}
-             (if random, choose something interesting: cyberpunk, nature, ocean, sunset, neon, minimal, cosmic, etc.)
-          2. Create a new color palette that fits the mood (5 colors)
-          3. Adjust shape density, animation styles, and composition
-          4. Keep 'JOEL HOOKS' text centered with a gradient that uses the palette
-          5. Background should be dark (#0d1117 or similar)
-          6. SVG should be 800x200
+            Your task:
+            1. Pick a mood: ${{ github.event.inputs.mood || 'random' }}
+               (if random, choose something interesting: cyberpunk, nature, ocean, sunset, neon, minimal, cosmic, etc.)
+            2. Create a new color palette that fits the mood (5 colors)
+            3. Adjust shape density, animation styles, and composition
+            4. Keep 'JOEL HOOKS' text centered with a gradient that uses the palette
+            5. Background should be dark (#0d1117 or similar)
+            6. SVG should be 800x200
 
-          Either:
-          - Modify generate-header.js with new palette/params and run it to create header.svg
-          - Or generate header.svg directly if you want more creative control
+            Either:
+            - Modify generate-header.js with new palette/params and run it to create header.svg
+            - Or generate header.svg directly if you want more creative control
 
-          Then commit with message like 'art: [mood] daily generative header'
-          "
+            Then commit with message like 'art: [mood] daily generative header'
+          use_oauth: "true"
+          claude_access_token: ${{ secrets.CLAUDE_ACCESS_TOKEN }}
+          claude_refresh_token: ${{ secrets.CLAUDE_REFRESH_TOKEN }}
+          claude_expires_at: ${{ secrets.CLAUDE_EXPIRES_AT }}
+          secrets_admin_pat: ${{ secrets.SECRETS_ADMIN_PAT }}
+          timeout_minutes: "30"
 
-      - name: Commit and push if changed
+      - name: Push if changed
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -73,6 +74,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "art: daily generative header"
+            git commit -m "art: ${{ github.event.inputs.mood || 'random' }} daily generative header"
             git push
           fi
