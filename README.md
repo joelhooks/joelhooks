@@ -7,7 +7,7 @@
  ╚════╝  ╚═════╝ ╚══════╝╚══════╝    ╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚══════╝
 ```
 
-**Co-founder [@eggloaf](https://egghead.io)** · **Education at [Vercel](https://vercel.com)** · **Building [Badass Courses](https://badass.dev)**
+**Co-founder [@egghead](https://egghead.io)** · **Education at [Vercel](https://vercel.com)** · **Building [Badass Courses](https://badass.dev)**
 
 ---
 
