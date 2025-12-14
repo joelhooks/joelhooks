@@ -1,14 +1,7 @@
-```
-npx joelhooks
-```
+![header](header.svg)
 
 ```
-     ██╗ ██████╗ ███████╗██╗         ██╗  ██╗ ██████╗  ██████╗ ██╗  ██╗███████╗
-     ██║██╔═══██╗██╔════╝██║         ██║  ██║██╔═══██╗██╔═══██╗██║ ██╔╝██╔════╝
-     ██║██║   ██║█████╗  ██║         ███████║██║   ██║██║   ██║█████╔╝ ███████╗
-██   ██║██║   ██║██╔══╝  ██║         ██╔══██║██║   ██║██║   ██║██╔═██╗ ╚════██║
-╚█████╔╝╚██████╔╝███████╗███████╗    ██║  ██║╚██████╔╝╚██████╔╝██║  ██╗███████║
- ╚════╝  ╚═════╝ ╚══════╝╚══════╝    ╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚══════╝
+npx joelhooks
 ```
 
 **Co-founder [@egghead](https://egghead.io)** · **Education at [Vercel](https://vercel.com)** · **Building [Badass Courses](https://badass.dev)**
@@ -22,7 +15,6 @@ I build tools for people who teach developers. The platform I create powers cour
 | [**AI Hero**](https://aihero.dev)                   | Matt Pocock's AI engineering course — prompt engineering, evals, RAG, agents |
 | [**Epic AI**](https://epicai.pro)                   | Kent C. Dodds on architecting intelligent experiences with MCP               |
 | [**Total TypeScript**](https://totaltypescript.com) | The industry standard for learning TypeScript                                |
-| [**Pro Tailwind**](https://protailwind.com)         | Simon Vrachliotis' deep dive into Tailwind CSS                               |
 
 ### Currently Obsessed With
 
@@ -40,7 +32,17 @@ I build tools for people who teach developers. The platform I create powers cour
 
 ### Writing
 
-I write at [joelhooks.com](https://joelhooks.com) about building products, developer education, and whatever rabbit hole I'm currently in.
+**From [joelhooks.com](https://joelhooks.com):**
+
+- [Building Coding Agent Flywheels with OpenCode](https://joelhooks.com/opencode-setup)
+- [My blog is a digital garden, not a blog](https://joelhooks.com/digital-garden)
+- [A decade of code (2009-2019)](https://joelhooks.com/a-decade-of-code)
+
+**From [badass.dev](https://badass.dev):**
+
+- [How we Shipped Total TypeScript with Matt Pocock](https://badass.dev/creating-total-typescript-with-matt-pocock)
+- [$415k Pre-Release Launch of a Developer Education Product](https://badass.dev/launch-of-a-developer-education-product)
+- [The Process](https://badass.dev/the-process) — how we build Badass courses
 
 ---
 

@@ -1,0 +1,45 @@
+name: Update README
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # Daily at midnight UTC
+  workflow_dispatch: # Manual trigger
+  push:
+    branches: [main]
+    paths:
+      - "generate-header.js"
+      - ".github/workflows/update-readme.yml"
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate new header
+        run: node generate-header.js > header.svg
+
+      - name: Fetch latest blog posts
+        run: |
+          curl -s https://joelhooks.com/rss.xml | head -100 > /tmp/rss.xml || true
+
+          # Extract latest 3 posts (fallback if RSS fails)
+          cat > /tmp/posts.md << 'EOF'
+          <!-- BLOG-POSTS:START -->
+          - [Building Coding Agent Flywheels with OpenCode](https://joelhooks.com/opencode-setup)
+          - [My blog is a digital garden, not a blog](https://joelhooks.com/digital-garden)
+          - [A decade of code (2009-2019)](https://joelhooks.com/a-decade-of-code)
+          <!-- BLOG-POSTS:END -->
+          EOF
+
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: regenerate header" && git push)
