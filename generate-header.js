@@ -3,6 +3,7 @@
 /**
  * Generates a Josh Davis-inspired generative art SVG header
  * Organic flowing shapes, vibrant gradients, controlled chaos
+ * With animated elements and name
  */
 
 const WIDTH = 800;
@@ -13,7 +14,6 @@ const PALETTES = [
   ["#ff6b6b", "#feca57", "#48dbfb", "#ff9ff3", "#1dd1a1"], // tropical
   ["#e17055", "#fdcb6e", "#00b894", "#6c5ce7", "#fd79a8"], // sunset
   ["#0984e3", "#00cec9", "#6c5ce7", "#e84393", "#fdcb6e"], // electric
-  ["#2d3436", "#636e72", "#b2bec3", "#dfe6e9", "#74b9ff"], // monochrome blue
   ["#ff7675", "#fab1a0", "#ffeaa7", "#81ecec", "#74b9ff"], // pastel pop
 ];
 
@@ -41,7 +41,6 @@ function generateBlobPath(cx, cy, radius, points, variance) {
     pathPoints.push({ x, y });
   }
 
-  // Create smooth curve through points
   let d = `M ${pathPoints[0].x} ${pathPoints[0].y}`;
 
   for (let i = 0; i < pathPoints.length; i++) {
@@ -84,7 +83,7 @@ function generateSVG() {
   const palette = pick(PALETTES);
   const bgColor = "#0d1117"; // GitHub dark mode
 
-  let defs = `
+  const defs = `
     <defs>
       <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" style="stop-color:${palette[0]};stop-opacity:0.8" />
@@ -96,7 +95,14 @@ function generateSVG() {
       </linearGradient>
       <linearGradient id="grad3" x1="0%" y1="100%" x2="100%" y2="0%">
         <stop offset="0%" style="stop-color:${palette[3]};stop-opacity:0.6" />
-        <stop offset="100%" style="stop-color:${palette[4]};stop-opacity:0.6" />
+        <stop offset="100%" style="stop-color:${palette[0]};stop-opacity:0.6" />
+      </linearGradient>
+      <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:${palette[0]}" />
+        <stop offset="25%" style="stop-color:${palette[1]}" />
+        <stop offset="50%" style="stop-color:${palette[2]}" />
+        <stop offset="75%" style="stop-color:${palette[3]}" />
+        <stop offset="100%" style="stop-color:${palette[0]}" />
       </linearGradient>
       <filter id="glow">
         <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
@@ -105,57 +111,110 @@ function generateSVG() {
           <feMergeNode in="SourceGraphic"/>
         </feMerge>
       </filter>
+      <filter id="textGlow">
+        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
     </defs>
+  `;
+
+  const styles = `
+    <style>
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-8px); }
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 0.4; }
+        50% { opacity: 0.9; }
+      }
+      @keyframes drift {
+        0% { transform: translateX(0px); }
+        50% { transform: translateX(10px); }
+        100% { transform: translateX(0px); }
+      }
+      @keyframes shimmer {
+        0% { opacity: 0.6; }
+        50% { opacity: 1; }
+        100% { opacity: 0.6; }
+      }
+      .float { animation: float 6s ease-in-out infinite; }
+      .float-delay { animation: float 6s ease-in-out infinite; animation-delay: -3s; }
+      .pulse { animation: pulse 4s ease-in-out infinite; }
+      .drift { animation: drift 8s ease-in-out infinite; }
+      .shimmer { animation: shimmer 3s ease-in-out infinite; }
+      .name-text { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+        font-weight: 700;
+        font-size: 64px;
+        letter-spacing: -2px;
+      }
+    </style>
   `;
 
   let elements = "";
 
-  // Background blobs
+  // Animated background blobs
   for (let i = 0; i < 5; i++) {
-    const cx = random(0, WIDTH);
-    const cy = random(0, HEIGHT);
-    const radius = random(40, 120);
+    const cx = random(50, WIDTH - 50);
+    const cy = random(30, HEIGHT - 30);
+    const radius = random(40, 100);
     const path = generateBlobPath(
       cx,
       cy,
       radius,
-      randomInt(6, 12),
-      radius * 0.4,
+      randomInt(6, 10),
+      radius * 0.3,
     );
     const gradId = `grad${randomInt(1, 4)}`;
-    elements += `<path d="${path}" fill="url(#${gradId})" opacity="${random(0.3, 0.7)}" />\n`;
+    const animClass = i % 2 === 0 ? "float" : "float-delay";
+    elements += `<path class="${animClass}" d="${path}" fill="url(#${gradId})" opacity="${random(0.2, 0.5)}" />\n`;
   }
 
-  // Flow lines
-  for (let i = 0; i < 8; i++) {
-    const startY = random(20, HEIGHT - 20);
-    const path = generateFlowLine(-50, startY, WIDTH + 100, random(20, 50));
+  // Animated flow lines
+  for (let i = 0; i < 6; i++) {
+    const startY = random(30, HEIGHT - 30);
+    const path = generateFlowLine(-50, startY, WIDTH + 100, random(15, 40));
     const color = pick(palette);
-    const strokeWidth = random(1, 4);
-    elements += `<path d="${path}" fill="none" stroke="${color}" stroke-width="${strokeWidth}" opacity="${random(0.4, 0.8)}" stroke-linecap="round" filter="url(#glow)" />\n`;
+    const strokeWidth = random(1, 3);
+    const animClass = i % 2 === 0 ? "pulse" : "drift";
+    elements += `<path class="${animClass}" d="${path}" fill="none" stroke="${color}" stroke-width="${strokeWidth}" opacity="${random(0.3, 0.6)}" stroke-linecap="round" filter="url(#glow)" />\n`;
   }
 
-  // Accent circles
-  for (let i = 0; i < 12; i++) {
+  // Animated accent circles
+  for (let i = 0; i < 15; i++) {
     const cx = random(0, WIDTH);
     const cy = random(0, HEIGHT);
-    const r = random(2, 8);
+    const r = random(2, 6);
     const color = pick(palette);
-    elements += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${color}" opacity="${random(0.5, 1)}" />\n`;
+    const delay = random(0, 4);
+    elements += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${color}" opacity="0.7" class="shimmer" style="animation-delay: ${delay}s" />\n`;
   }
 
   // Small detail dots
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 25; i++) {
     const cx = random(0, WIDTH);
     const cy = random(0, HEIGHT);
-    const r = random(0.5, 2);
-    elements += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="white" opacity="${random(0.2, 0.5)}" />\n`;
+    const r = random(0.5, 1.5);
+    elements += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="white" opacity="${random(0.15, 0.4)}" />\n`;
   }
+
+  // Name text with gradient and glow
+  const nameText = `
+    <text x="${WIDTH / 2}" y="${HEIGHT / 2 + 20}" text-anchor="middle" class="name-text" fill="url(#textGrad)" filter="url(#textGlow)">
+      JOEL HOOKS
+    </text>
+  `;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${WIDTH} ${HEIGHT}" width="${WIDTH}" height="${HEIGHT}">
   <rect width="${WIDTH}" height="${HEIGHT}" fill="${bgColor}"/>
   ${defs}
+  ${styles}
   ${elements}
+  ${nameText}
 </svg>`;
 }
 
