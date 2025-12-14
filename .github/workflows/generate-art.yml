@@ -43,22 +43,24 @@ jobs:
           prompt: |
             Generate a fresh generative art SVG header for my GitHub profile.
 
+            IMPORTANT: Use Bash to modify files and run commands. Do NOT use Edit/Write tools.
+
             Current approach is in generate-header.js - study it to understand the style.
 
             Your task:
             1. Pick a mood: ${{ github.event.inputs.mood || 'random' }}
                (if random, choose something interesting: cyberpunk, nature, ocean, sunset, neon, minimal, cosmic, etc.)
             2. Create a new color palette that fits the mood (5 colors)
-            3. Adjust shape density, animation styles, and composition
-            4. Keep 'JOEL HOOKS' text centered with a gradient that uses the palette
-            5. Background should be dark (#0d1117 or similar)
-            6. SVG should be 800x200
+            3. Use sed or cat with heredoc to modify generate-header.js with the new palette
+            4. Run: node generate-header.js > header.svg
+            5. Verify the SVG was created: cat header.svg | head -20
 
-            Either:
-            - Modify generate-header.js with new palette/params and run it to create header.svg
-            - Or generate header.svg directly if you want more creative control
+            Requirements:
+            - Keep 'JOEL HOOKS' text centered with a gradient that uses the palette
+            - Background should be dark (#0d1117 or similar)
+            - SVG should be 800x200
 
-            Then commit with message like 'art: [mood] daily generative header'
+            After generating, commit with: git add header.svg && git commit -m 'art: [mood] daily generative header'
           use_oauth: "true"
           claude_access_token: ${{ secrets.CLAUDE_ACCESS_TOKEN }}
           claude_refresh_token: ${{ secrets.CLAUDE_REFRESH_TOKEN }}
@@ -66,6 +68,7 @@ jobs:
           secrets_admin_pat: ${{ secrets.SECRETS_ADMIN_PAT }}
           timeout_minutes: "30"
           model: "claude-sonnet-4-20250514"
+          allowed_tools: "Bash,Read,Glob,Grep,LS,TodoRead,TodoWrite"
 
       - name: Push if changed
         run: |
