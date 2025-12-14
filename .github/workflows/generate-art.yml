@@ -37,44 +37,14 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Generate new header with Claude
-        uses: grll/claude-code-base-action@main
-        with:
-          prompt: |
-            Generate a fresh generative art SVG header for my GitHub profile.
-
-            IMPORTANT: Use Bash to modify files and run commands. Do NOT use Edit/Write tools.
-
-            Current approach is in generate-header.js - study it to understand the style.
-
-            Your task:
-            1. Pick a mood: ${{ github.event.inputs.mood || 'random' }}
-               (if random, choose something interesting: cyberpunk, nature, ocean, sunset, neon, minimal, cosmic, etc.)
-            2. Create a new color palette that fits the mood (5 colors)
-            3. Use sed or cat with heredoc to modify generate-header.js with the new palette
-            4. Run: node generate-header.js > header.svg
-            5. Verify the SVG was created: cat header.svg | head -20
-
-            Requirements:
-            - Keep 'JOEL HOOKS' text centered with a gradient that uses the palette
-            - Background should be dark (#0d1117 or similar)
-            - SVG should be 800x200
-
-            After generating, commit with: git add header.svg && git commit -m 'art: [mood] daily generative header'
-          use_oauth: "true"
-          claude_access_token: ${{ secrets.CLAUDE_ACCESS_TOKEN }}
-          claude_refresh_token: ${{ secrets.CLAUDE_REFRESH_TOKEN }}
-          claude_expires_at: ${{ secrets.CLAUDE_EXPIRES_AT }}
-          secrets_admin_pat: ${{ secrets.SECRETS_ADMIN_PAT }}
-          timeout_minutes: "30"
-          model: "claude-sonnet-4-5"
-          allowed_tools: "Bash,Read,Glob,Grep,LS,TodoRead,TodoWrite"
+      - name: Generate header
+        run: node generate-header.js ${{ github.event.inputs.mood || 'random' }} > header.svg
 
       - name: Push if changed
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add -A
+          git add header.svg
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
