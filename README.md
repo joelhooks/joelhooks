@@ -4,7 +4,7 @@
 npx joelhooks
 ```
 
-**Co-founder [@egghead](https://egghead.io)** · **Education at [Vercel](https://vercel.com)** · **Building [Badass Courses](https://badass.dev)**
+**Co-founder [@egghead](https://egghead.io)** · **Building [Badass Courses](https://badass.dev)**
 
 ---
 
@@ -35,7 +35,6 @@ I build tools for people who teach developers. The platform I create powers cour
 | [**pdf-brain**](https://github.com/joelhooks/pdf-brain) | Local PDF knowledge base with vector search using libsql |
 | [**swarm-tools**](https://github.com/joelhooks/swarm-tools) | Multi-agent swarm coordination with learning capabilities |
 | [**atproto-agent-network**](https://github.com/joelhooks/atproto-agent-network) | AT Protocol on Cloudflare — decentralized agent identity and coordination |
-| [**course-builder**](https://github.com/skillrecordings/course-builder) | The platform behind all the courses above |
 
 ### π Skills
 
